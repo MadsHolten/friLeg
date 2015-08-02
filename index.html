@@ -1,18 +1,25 @@
 <!DOCTYPE html>
-<html ng-app>
+<html ng-app="geoCode">
+<meta charset="UTF-8">
   <head>
-    <link rel="stylesheet" type="text/css" href="bootstrap.min.css" />
+    <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
     <script src="/bower_components/angular/angular.js"></script>
-    <!--
     <script type="text/javascript" src="app.js"></script>
-    -->
   </head>
   <body>
     <div>
-      <label>Name:</label>
-      <input type="text" ng-model="yourName" placeholder="Enter a name here">
+    	<form class="form-horizontal">
+			<label>Lokation:</label>
+			<input type="text" ng-model="addressText" placeholder="Enter a name here">
+			<button class="btn" ng-click="geoSearch()"><i class="glyphicon glyphicon-search"></i> Søg</button>
+		</form>
       <hr>
-      <h1>Hello {{yourName}}!</h1>
+      <h1>Addresse: {{addressText}}</h1>
+      <div ng-controller="getGC">
+		<ul>
+			<li>{{lat}}, {{lng}}</li>
+		</ul>
+      <div>
     </div>
   </body>
 </html>
