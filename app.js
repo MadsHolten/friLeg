@@ -9,6 +9,8 @@
 	app.controller('GetGeoCode', ['$scope','$http', function($scope, $http){
 	//app.controller('GetGeoCode', ['$scope','$http', 'fbCRUD', function($scope, $http, fbCRUD){	
 
+		$scope.coordinates = 'Indtast addresse eller sted';
+
 		$scope.update = function(geo) {
 
 			//Kode til Google develop
@@ -23,10 +25,11 @@
 		    		if(data.status == 'OK') {
 						// this callback will be called asynchronously
 						// when the response is available
+						var adr = data.results[0].formatted_address;
 						var lat = data.results[0].geometry.location.lat;
 						var lng = data.results[0].geometry.location.lng;
 
-						$scope.coordinates = lat + ', ' + lng;
+						$scope.coordinates = adr + ' | ' + lat + ', ' + lng;
 
 						//fbCRUD.addPOI(data);
 					}
