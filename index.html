@@ -3,23 +3,24 @@
 <meta charset="UTF-8">
   <head>
     <link rel="stylesheet" type="text/css" href="/bower_components/bootstrap/dist/css/bootstrap.min.css" />
-    <script src="/bower_components/angular/angular.js"></script>
+    <script src="/bower_components/angular/angular.min.js"></script>
+    <script src="/bower_components/firebase/firebase.js"></script>
+    <script src="/bower_components/angularfire/dist/angularfire.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
   </head>
   <body>
-    <div>
-    	<form class="form-horizontal">
-			<label>Lokation:</label>
-			<input type="text" ng-model="addressText" placeholder="Enter a name here">
-			<button class="btn" ng-click="geoSearch()"><i class="glyphicon glyphicon-search"></i> Søg</button>
-		</form>
-      <hr>
-      <h1>Addresse: {{addressText}}</h1>
-      <div ng-controller="getGC">
-		<ul>
-			<li>{{lat}}, {{lng}}</li>
-		</ul>
-      <div>
-    </div>
+  <div>
+      <div ng-controller="GetGeoCode as gc" class="container-fluid">
+      	<h1>Søg lokation</h1>
+      	<form class="form-inline">
+      	<div class="input-group">
+      		<span class="input-group-addon" id="basic-addon1"><i class="glyphicon glyphicon-pushpin"></i></span>
+			<input type="text" class="form-control" placeholder="Addresse" id="address" ng-model="geo.address" ng-enter="update(geo)" equired aria-describedby="basic-addon1"/>
+		</div>
+      	<button class="btn btn-default" ng-click="update(geo)"><i class="glyphicon glyphicon-search"></i> Søg</button>
+      	</form>
+      	<p>{{coordinates}}</p>
+      </div>
+	</div>
   </body>
 </html>

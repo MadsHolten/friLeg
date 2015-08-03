@@ -1,22 +1,47 @@
-//Modul defineres
-var app = angular.module('geoCode', []);
+//Det er en god idé at ramme JS-koden ind
+(function(){
+	//Modul defineres
+	var app = angular.module('geoCode', ["firebase"]);
 
-//$scope.geoSearch = function() {
-//	var adrString = $scope.addressText.split(' ').join('+');
-//};
+	//CONTROLLER TIL AT HENTE GEOCODE DATA VIA GOOGLES API
 
-//Controller til ???
-//Scopes bruges til at dele data mellem controllers og views (dependency injection)
-app.controller('getGC', function($scope, $http){
+	//Scopes bruges til at dele data mellem controllers og views (dependency injection)
+	app.controller('GetGeoCode', ['$scope','$http', function($scope, $http){
+	//app.controller('GetGeoCode', ['$scope','$http', 'fbCRUD', function($scope, $http, fbCRUD){	
 
-	var googleAPIkey = 'AIzaSyDPmpy8aXArbc3gCXMjA3y-0g7OBJWzgOk';
+		$scope.update = function(geo) {
 
-	//$scope-variablen er bare et JS objekt. Der kan sættes variable uden at skulle kalde en funktion eller noget
-    $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=1600+Amphitheatre+Parkway,+Mountain+View,+CA&key=' + googleAPIkey).
-    	success(function(data) {
-			// this callback will be called asynchronously
-			// when the response is available
-			$scope.lat = data.results[0].geometry.location.lat;
-			$scope.lng = data.results[0].geometry.location.lng;
-		});
-});
+			//Kode til Google develop
+			var googleAPIkey = 'AIzaSyDPmpy8aXArbc3gCXMjA3y-0g7OBJWzgOk';
+
+			//Addressefelt hentes
+			var adr = $scope.geo.address.split(' ').join('+');
+
+			//$scope-variablen er bare et JS objekt. Der kan sættes variable uden at skulle kalde en funktion eller noget
+		    $http.get('https://maps.googleapis.com/maps/api/geocode/json?address=' + adr + '&key=' + googleAPIkey)
+		    	.success(function(data) {
+		    		if(data.status == 'OK') {
+						// this callback will be called asynchronously
+						// when the response is available
+						var lat = data.results[0].geometry.location.lat;
+						var lng = data.results[0].geometry.location.lng;
+
+						$scope.coordinates = lat + ', ' + lng;
+
+						//fbCRUD.addPOI(data);
+					}
+					else {$scope.coordinates = 'Ingen resultater'}
+				});
+		};
+	}]);
+/*
+	app.factory('fbCRUD', ['$firebase', function($firebase) {
+		//Opret forbindelse til firebase
+		var ref = new Firebase("https://rdtrp.firebaseio.com");
+
+		var addPOI = function(POI) {
+			POIs.$add(data);
+		};
+	}]);*/
+
+})();
