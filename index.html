@@ -9,10 +9,14 @@
     <script src="/bower_components/lodash/lodash.min.js"></script>
     <script src="/bower_components/angular-google-maps/dist/angular-google-maps.min.js"></script>
     <script type="text/javascript" src="app.js"></script>
+
+    <!-- Custom css -->
+	<link rel="stylesheet" href="css/style.css">
   </head>
   <body>
-  <div>
-      <div ng-controller="GetGeoCode as gc" class="container-fluid">
+
+
+    <div ng-controller="GetGeoCode as gc" class="container-fluid">
       	<h1>Søg lokation</h1>
       	<form class="form-inline">
       	<div class="input-group">
@@ -28,9 +32,13 @@
       			<p>{{coordinates}}</p>
       		</div>
       	</div>
-      </div>
-	</div>
 
-	<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d7098.94326104394!2d78.0430654485247!3d27.172909818538997!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sen!2s!4v1385710909804" width="600" height="450" frameborder="0" style="border:0"></iframe>
+      	<!-- Google kort -->
+      	<ui-gmap-google-map center='map.center' zoom='map.zoom'>
+	      	<!-- Markør -->
+	      	<ui-gmap-marker idKey='marker.id' coords='marker.coords' options='marker.options'></ui-gmap-marker>
+      	</ui-gmap-google-map>
+     </div>
+
   </body>
 </html>
